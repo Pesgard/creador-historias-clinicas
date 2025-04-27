@@ -98,7 +98,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 flex items-center justify-between">
           <div className="flex items-center">
             <img src={logo} alt="Logo" className="w-10 h-10 mr-2" />
-            <h1 className="text-xl font-bold text-gray-900">Historial Médico</h1>
+            <h1 className="text-xl font-bold text-gray-900">Historial Clínico Laboral</h1>
           </div>
           <div className="hidden sm:flex items-center space-x-4">
             <div className="text-sm text-gray-500">
