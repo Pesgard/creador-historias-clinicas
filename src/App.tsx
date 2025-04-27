@@ -21,11 +21,13 @@ import PhysicalExamStep from './components/formSteps/PhysicalExamStep';
 import SystemsExamStep from './components/formSteps/SystemsExamStep';
 import MedicalEvaluationStep from './components/formSteps/MedicalEvaluationStep';
 import ReviewStep from './components/formSteps/ReviewStep';
+import logo from './assets/logo.png';
 
 function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<MedicalRecord>(getEmptyMedicalRecord());
   const [showMobileStepper, setShowMobileStepper] = useState(false);
+
   
   const updateFormData = (fieldName: keyof MedicalRecord, value: string) => {
     setFormData((prevData) => ({
@@ -89,14 +91,13 @@ function App() {
   };
   
   const currentStepData = formSteps[currentStep];
-  const StepIcon = LucideIcons[currentStepData.icon as keyof typeof LucideIcons] || LucideIcons.Circle;
 
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 flex items-center justify-between">
           <div className="flex items-center">
-            <LucideIcons.Stethoscope className="text-blue-600 mr-2" size={24} />
+            <img src={logo} alt="Logo" className="w-10 h-10 mr-2" />
             <h1 className="text-xl font-bold text-gray-900">Historial Médico</h1>
           </div>
           <div className="hidden sm:flex items-center space-x-4">
