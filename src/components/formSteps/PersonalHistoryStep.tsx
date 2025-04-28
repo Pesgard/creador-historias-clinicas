@@ -114,7 +114,7 @@ const PersonalHistoryStep: React.FC<PersonalHistoryStepProps> = ({ data, updateD
             />
             <FormInput
               id="patArtitis"
-              label="Artitis"
+              label="Artritis"
               type="checkbox"
               value={data.patArtitis}
               onChange={handleChange}

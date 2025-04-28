@@ -154,17 +154,17 @@ export const generatePDF = (data: MedicalRecord): void => {
       doc.setFont("helvetica", "normal");
       yPos += 8;
       doc.text(`Nombre: ${data.nombre}`, 15, yPos);
-      doc.text(`Edad: ${data.edad} años`, 120, yPos);
-      doc.text(`Sexo: ${data.sexo}`, 160, yPos);
+      doc.text(`Edad: ${data.edad} años`, 100, yPos);
       yPos += 6;
+      doc.text(`Sexo: ${data.sexo}`, 100, yPos);
       doc.text(`Fecha de Nacimiento: ${data.fechaNacimiento}`, 15, yPos);
+      doc.text(`Puesto Solicitado: ${data.puestoSolicitado}`, 140, yPos);
       yPos += 6;
       doc.text(`Dirección: ${data.direccion}`, 15, yPos);
+      doc.text(`Email: ${data.email}`, 100, yPos);
       yPos += 6;
       doc.text(`Teléfono: ${data.telefono}`, 15, yPos);
-      doc.text(`Email: ${data.email}`, 120, yPos);
-      doc.text(`NSS: ${data.nss}`, 160, yPos);
-      doc.text(`Puesto Solicitado: ${data.puestoSolicitado}`, 200, yPos);
+      doc.text(`NSS: ${data.nss}`, 100, yPos);
 
       // Sección 2: Información Laboral
       yPos += 10;
@@ -1004,13 +1004,14 @@ export const generatePDF = (data: MedicalRecord): void => {
       // First row
       doc.line(15, yPos + 12, pageWidth - 15, yPos + 12);
       // Vertical lines for columns
-      const col1 = 15 + (pageWidth - 30) * 0.25; // 25% width
-      const col2 = 15 + (pageWidth - 30) * 0.5; // 50% width
-      const col3 = 15 + (pageWidth - 30) * 0.75; // 75% width
+      const col1 = 15 + (pageWidth - 30) * 0.33; // 25% width
+      const col2 = 15 + (pageWidth - 30) * 0.66; // 75% width
 
       doc.line(col1, yPos, col1, yPos + 40);
+      doc.line(col1 - 10, yPos, col1 - 10, yPos + 40);
       doc.line(col2, yPos, col2, yPos + 40);
-      doc.line(col3, yPos, col3, yPos + 40);
+      doc.line(col2 - 10, yPos, col2 - 10, yPos + 40);
+      doc.line(pageWidth - 25, yPos, pageWidth - 25, yPos + 40);
 
       // Horizontal lines for rows
       doc.line(15, yPos + 24, pageWidth - 15, yPos + 24);
@@ -1020,28 +1021,28 @@ export const generatePDF = (data: MedicalRecord): void => {
       doc.text(data.bloodHemoglobin || "", 65, yPos + 8);
 
       doc.text("AUDIOMETRÍAS", col1 + 5, yPos + 8);
-      doc.text(data.audiometry || "", col2 - 20, yPos + 8);
+      doc.text(data.audiometry || "", col2 - 10, yPos + 8);
 
       doc.text("ALCOHOLEMIA", col2 + 5, yPos + 8);
-      doc.text(data.alcoholemia || "", pageWidth - 40, yPos + 8);
+      doc.text(data.alcoholemia || "", pageWidth - 25, yPos + 8);
 
       doc.text("QS", 20, yPos + 20);
       doc.text(data.quickSedimentation || "", 65, yPos + 20);
 
       doc.text("ESPIROMETRÍAS", col1 + 5, yPos + 20);
-      doc.text(data.spirometry || "", col2 - 20, yPos + 20);
+      doc.text(data.spirometry || "", col2 - 10, yPos + 20);
 
       doc.text("ANTIDOPAJE", col2 + 5, yPos + 20);
-      doc.text(data.antidoping || "", pageWidth - 40, yPos + 20);
+      doc.text(data.antidoping || "", pageWidth - 25, yPos + 20);
 
       doc.text("ORINA", 20, yPos + 32);
       doc.text(data.urine || "", 65, yPos + 32);
 
       doc.text("RX TORAX", col1 + 5, yPos + 32);
-      doc.text(data.chestXRay || "", col2 - 20, yPos + 32);
+      doc.text(data.chestXRay || "", col2 - 10, yPos + 32);
 
       doc.text("RX LUMBAR", col2 + 5, yPos + 32);
-      doc.text(data.lumbarXRay || "", pageWidth - 40, yPos + 32);
+      doc.text(data.lumbarXRay || "", pageWidth - 25, yPos + 32);
 
       yPos += 45;
 
@@ -1058,10 +1059,12 @@ export const generatePDF = (data: MedicalRecord): void => {
       if (data.rombergTest === "NEG") {
         doc.text("X", 188, yPos);
       }
-
-      doc.text("OBSERVACIONES:", 205, yPos);
+      
+      yPos += 15;
+      
+      doc.text("OBSERVACIONES:", 15, yPos);
       doc.text(data.rombergTestObservations || "", 290, yPos);
-
+      
       yPos += 15;
 
       // Babinski Test
@@ -1102,7 +1105,7 @@ export const generatePDF = (data: MedicalRecord): void => {
       yPos += 8;
 
       // Draw the aptitude boxes
-      const boxWidth = (pageWidth - 40) / 4;
+      const boxWidth = (pageWidth - 30) / 4;
       const boxHeight = 15;
 
       // APTO - Green
@@ -1115,7 +1118,7 @@ export const generatePDF = (data: MedicalRecord): void => {
         data.aptitud === "APTO" ? "F" : "S"
       );
       doc.setTextColor(data.aptitud === "APTO" ? 255 : 0, 0, 0);
-      doc.text("APTO", 15 + boxWidth / 2 - 10, yPos + 10);
+      doc.text("APTO", 15 + boxWidth / 2 - 10, yPos + 8);
 
       // APTO CON OBSERVACIÓN - Blue
       doc.setFillColor(0, 120, 255);
@@ -1128,8 +1131,13 @@ export const generatePDF = (data: MedicalRecord): void => {
       );
       doc.setTextColor(data.aptitud === "APTO CON OBSERVACION" ? 255 : 0, 0, 0);
       doc.text(
-        "APTO CON OBSERVACIÓN",
-        15 + boxWidth + boxWidth / 2 - 40,
+        "APTO CON",
+        15 + boxWidth + boxWidth / 2 - 20,
+        yPos + 5
+      );
+      doc.text(
+        "OBSERVACIÓN",
+        15 + boxWidth + boxWidth / 2 - 20,
         yPos + 10
       );
 
@@ -1144,8 +1152,13 @@ export const generatePDF = (data: MedicalRecord): void => {
       );
       doc.setTextColor(0, 0, 0);
       doc.text(
-        "APTO CON LIMITACIONES",
-        15 + boxWidth * 2 + boxWidth / 2 - 40,
+        "APTO CON",
+        15 + boxWidth * 2 + boxWidth / 2 - 20,
+        yPos + 5
+      );
+      doc.text(
+        "LIMITACIONES",
+        15 + boxWidth * 2 + boxWidth / 2 - 20,
         yPos + 10
       );
 
@@ -1178,7 +1191,7 @@ export const generatePDF = (data: MedicalRecord): void => {
 
       // Create a cell for the signature
       doc.rect(15 + tableWidth * 0.7, yPos, tableWidth * 0.3, 50);
-      doc.text("FIRMA DEL MÉDICO", 15 + tableWidth * 0.7 + 15, yPos + 25);
+      doc.text("FIRMA DEL MÉDICO", 15 + tableWidth * 0.7 + 10, yPos + 42);
 
       // Name and Specialty
       doc.text("NOMBRE DEL MÉDICO", 20, yPos + 8);

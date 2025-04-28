@@ -92,10 +92,10 @@ const FamilyHistoryStep: React.FC<FamilyHistoryStepProps> = ({ data, updateData 
               onChange={handleChange}
             />
             <FormInput
-              id="artitis"
-              label="Artitis"
+              id="artritis"
+              label="Artritis"
               type="checkbox"
-              value={data.artitis}
+              value={data.artritis}
               onChange={handleChange}
             />
           </div>
@@ -114,13 +114,6 @@ const FamilyHistoryStep: React.FC<FamilyHistoryStepProps> = ({ data, updateData 
               label="Neumopatías"
               type="checkbox"
               value={data.neumopatias}
-              onChange={handleChange}
-            />
-            <FormInput
-              id="artritis"
-              label="Artritis"
-              type="checkbox"
-              value={data.artritis}
               onChange={handleChange}
             />
             <FormInput

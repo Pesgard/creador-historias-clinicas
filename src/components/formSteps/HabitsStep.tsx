@@ -1,6 +1,6 @@
-import React from 'react';
-import FormInput from '../FormInput';
-import { MedicalRecord } from '../../types';
+import React from "react";
+import FormInput from "../FormInput";
+import { MedicalRecord } from "../../types";
 
 interface HabitsStepProps {
   data: MedicalRecord;
@@ -8,7 +8,11 @@ interface HabitsStepProps {
 }
 
 const HabitsStep: React.FC<HabitsStepProps> = ({ data, updateData }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     updateData(e.target.id as keyof MedicalRecord, e.target.value);
   };
 
@@ -24,7 +28,7 @@ const HabitsStep: React.FC<HabitsStepProps> = ({ data, updateData }) => {
         {/* Vivienda */}
         <div>
           <h3 className="text-lg font-semibold mb-4">Vivienda</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <FormInput
               id="viviendaMaterial"
               label="Material"
@@ -45,6 +49,8 @@ const HabitsStep: React.FC<HabitsStepProps> = ({ data, updateData }) => {
               value={data.viviendaPersonas}
               onChange={handleChange}
             />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <FormInput
               id="viviendaAguaPotable"
               label="Agua Potable"
@@ -205,7 +211,7 @@ const HabitsStep: React.FC<HabitsStepProps> = ({ data, updateData }) => {
         {/* Consumo de Alcohol */}
         <div>
           <h3 className="text-lg font-semibold mb-4">Consumo de Alcohol</h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid items-center grid-cols-2 md:grid-cols-5 gap-4">
             <FormInput
               id="alcoholConsumo"
               label="Consumo"
@@ -246,7 +252,7 @@ const HabitsStep: React.FC<HabitsStepProps> = ({ data, updateData }) => {
         {/* Consumo de Tabaco */}
         <div>
           <h3 className="text-lg font-semibold mb-4">Consumo de Tabaco</h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid items-center grid-cols-2 md:grid-cols-5 gap-4">
             <FormInput
               id="tabacoConsumo"
               label="Consumo"
@@ -287,7 +293,7 @@ const HabitsStep: React.FC<HabitsStepProps> = ({ data, updateData }) => {
         {/* Otras Drogas */}
         <div>
           <h3 className="text-lg font-semibold mb-4">Otras Drogas</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex items-center gap-24">
             <FormInput
               id="drogasConsumo"
               label="Consumo"
@@ -298,6 +304,7 @@ const HabitsStep: React.FC<HabitsStepProps> = ({ data, updateData }) => {
             <FormInput
               id="drogasObservaciones"
               label="Observaciones"
+              className="w-full"
               value={data.drogasObservaciones}
               onChange={handleChange}
             />
